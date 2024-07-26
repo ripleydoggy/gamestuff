@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette</title>
+    <script>
+        function roulette() {
+            let chips = 100;
+
+            function game() {
+                let hi = Math.floor(Math.random() * 36) + 1;
+                let color = hi % 2 === 0 ? "black" : "red";
+                let bet = parseInt(prompt(`You have ${chips} chips. How many would you like to bet?`));
+                let guess = parseInt(prompt("Please guess a number between 1 and 36."));
+
+                if (bet > chips) {
+                    alert("Insufficient funds. Try again.");
+                    return game();
+                }
+
+                if (guess !== hi) {
+                    chips -= bet;
+                    alert(`The wheel landed on ${hi} (${color}). You lost!`);
+                } else {
+                    chips += bet * 36;
+                    alert(`The wheel landed on ${hi} (${color}). You won!`);
+                }
+
+                alert(`Your new chip count is ${chips}.`);
+                if (chips > 0 && confirm("Do you want to play again?")) {
+                    game();
+                } else {
+                    alert(`Game over! Your final chip count is ${chips}.`);
+                }
+            }
+
+            game();
+        }
+    </script>
+</head>
+<body onload="roulette()">
+    <h1>Roulette</h1>
+    <p>Follow the instructions to play the game.</p>
+</body>
+</html>

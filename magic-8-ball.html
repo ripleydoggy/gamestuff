@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8 Ball</title>
+    <script>
+        function magicball() {
+            let name = prompt("What is your name?");
+            let question = prompt("What is your question?");
+            let random_number = Math.floor(Math.random() * 9) + 1;
+            let answer = "";
+
+            switch(random_number) {
+                case 1: answer = "Yes - definitely"; break;
+                case 2: answer = "It is decidedly so"; break;
+                case 3: answer = "Without a doubt"; break;
+                case 4: answer = "Reply hazy, try again"; break;
+                case 5: answer = "Ask again later"; break;
+                case 6: answer = "Better not tell you now"; break;
+                case 7: answer = "My sources say no"; break;
+                case 8: answer = "Outlook not so good"; break;
+                case 9: answer = "Very doubtful"; break;
+                default: answer = "Error";
+            }
+
+            alert(`${name} asks: ${question}\nThe answer: ${answer}`);
+        }
+    </script>
+</head>
+<body onload="magicball()">
+    <h1>Magic 8 Ball</h1>
+    <p>Follow the instructions to play the game.</p>
+</body>
+</html>

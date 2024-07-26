@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <script>
+        function rps() {
+            let my_move = prompt("Please enter Rock, Paper, or Scissors:");
+            let random_number = Math.floor(Math.random() * 3) + 1;
+            let bot_move = "";
+            let result = "";
+
+            if (random_number === 1) bot_move = "Rock";
+            if (random_number === 2) bot_move = "Paper";
+            if (random_number === 3) bot_move = "Scissors";
+
+            if ((my_move === "Rock" && bot_move === "Scissors") ||
+                (my_move === "Paper" && bot_move === "Rock") ||
+                (my_move === "Scissors" && bot_move === "Paper")) {
+                result = "You win!";
+            } else if (my_move === bot_move) {
+                result = "It's a tie!";
+            } else {
+                result = "You lose!";
+            }
+
+            alert(`Bot move: ${bot_move}\nResult: ${result}`);
+        }
+    </script>
+</head>
+<body onload="rps()">
+    <h1>Rock Paper Scissors</h1>
+    <p>Follow the instructions to play the game.</p>
+</body>
+</html>
