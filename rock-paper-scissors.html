@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+    </style>
     <script>
         function rps() {
-            let my_move = prompt("Please enter Rock, Paper, or Scissors:");
+            let my_move = document.getElementById("my-move").value.toLowerCase();
             let random_number = Math.floor(Math.random() * 3) + 1;
             let bot_move = "";
             let result = "";
 
-            if (random_number === 1) bot_move = "Rock";
-            if (random_number === 2) bot_move = "Paper";
-            if (random_number === 3) bot_move = "Scissors";
+            if (random_number === 1) bot_move = "rock";
+            if (random_number === 2) bot_move = "paper";
+            if (random_number === 3) bot_move = "scissors";
 
-            if ((my_move === "Rock" && bot_move === "Scissors") ||
-                (my_move === "Paper" && bot_move === "Rock") ||
-                (my_move === "Scissors" && bot_move === "Paper")) {
+            if ((my_move === "rock" && bot_move === "scissors") ||
+                (my_move === "paper" && bot_move === "rock") ||
+                (my_move === "scissors" && bot_move === "paper")) {
                 result = "You win!";
             } else if (my_move === bot_move) {
                 result = "It's a tie!";
@@ -25,12 +32,17 @@
                 result = "You lose!";
             }
 
-            alert(`Bot move: ${bot_move}\nResult: ${result}`);
+            document.getElementById("bot-move").innerText = `Bot move: ${bot_move}`;
+            document.getElementById("result").innerText = `Result: ${result}`;
         }
     </script>
 </head>
-<body onload="rps()">
+<body>
     <h1>Rock Paper Scissors</h1>
-    <p>Follow the instructions to play the game.</p>
+    <p>Enter Rock, Paper, or Scissors to play:</p>
+    <input type="text" id="my-move" placeholder="Rock, Paper, or Scissors">
+    <button onclick="rps()">Play</button>
+    <p id="bot-move"></p>
+    <p id="result"></p>
 </body>
 </html>
