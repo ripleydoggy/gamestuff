@@ -14,49 +14,50 @@
             margin: 10px;
         }
     </style>
-    <script>
-        function roulette() {
-            let chips = 100;
-
-            function game() {
-                let hi = Math.floor(Math.random() * 36) + 1;
-                let color = hi % 2 === 0 ? "black" : "red";
-                let bet = parseInt(document.getElementById("bet").value);
-                let guess = parseInt(document.getElementById("guess").value);
-
-                if (bet > chips) {
-                    alert("Insufficient funds. Try again.");
-                    return;
-                }
-
-                if (guess !== hi) {
-                    chips -= bet;
-                    document.getElementById("result").innerText = `The wheel landed on ${hi} (${color}). You lost!`;
-                } else {
-                    chips += bet * 36;
-                    document.getElementById("result").innerText = `The wheel landed on ${hi} (${color}). You won!`;
-                }
-
-                document.getElementById("chips").innerText = `Your new chip count is ${chips}.`;
-                if (chips > 0 && confirm("Do you want to play again?")) {
-                    return;
-                } else {
-                    document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
-                }
-            }
-
-            document.getElementById("spin").onclick = game;
-        }
-    </script>
 </head>
-<body onload="roulette()">
+<body>
     <h1>Roulette</h1>
     <p>You have 100 chips. Enter your bet and guess a number between 1 and 36:</p>
     <input type="number" id="bet" placeholder="Your bet">
-    <input type="number" id="guess" placeholder="Your guess">
-    <button id="spin">Spin the Wheel</button>
+    <input type="number" id="guess" placeholder="Your guess" min="1" max="36">
+    <button onclick="spin()">Spin the Wheel</button>
     <p id="result"></p>
     <p id="chips">Your new chip count is: 100</p>
     <p id="final"></p>
+    <script>
+        let chips = 100;
+
+        function spin() {
+            const bet = parseInt(document.getElementById("bet").value);
+            const guess = parseInt(document.getElementById("guess").value);
+
+            if (isNaN(bet) || isNaN(guess) || bet <= 0 || guess < 1 || guess > 36) {
+                alert("Please enter a valid bet and guess.");
+                return;
+            }
+
+            if (bet > chips) {
+                alert("Insufficient funds. Try again.");
+                return;
+            }
+
+            const hi = Math.floor(Math.random() * 36) + 1;
+            const color = hi % 2 === 0 ? "black" : "red";
+
+            if (guess !== hi) {
+                chips -= bet;
+                document.getElementById("result").innerText = `The wheel landed on ${hi} (${color}). You lost!`;
+            } else {
+                chips += bet * 36;
+                document.getElementById("result").innerText = `The wheel landed on ${hi} (${color}). You won!`;
+            }
+
+            document.getElementById("chips").innerText = `Your new chip count is: ${chips}`;
+
+            if (chips <= 0) {
+                document.getElementById("final").innerText = "Game over! You have no more chips.";
+            }
+        }
+    </script>
 </body>
 </html>
