@@ -10,6 +10,9 @@
             text-align: center;
             padding: 50px;
         }
+        input {
+            margin: 10px;
+        }
     </style>
     <script>
         function roulette() {
@@ -36,17 +39,24 @@
 
                 document.getElementById("chips").innerText = `Your new chip count is ${chips}.`;
                 if (chips > 0 && confirm("Do you want to play again?")) {
-                    return game();
+                    return;
                 } else {
                     document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                 }
             }
 
-            game();
+            document.getElementById("spin").onclick = game;
         }
     </script>
 </head>
-<body>
+<body onload="roulette()">
     <h1>Roulette</h1>
     <p>You have 100 chips. Enter your bet and guess a number between 1 and 36:</p>
-    <input type="number" id="bet"
+    <input type="number" id="bet" placeholder="Your bet">
+    <input type="number" id="guess" placeholder="Your guess">
+    <button id="spin">Spin the Wheel</button>
+    <p id="result"></p>
+    <p id="chips">Your new chip count is: 100</p>
+    <p id="final"></p>
+</body>
+</html>
