@@ -4,35 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guesser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+    </style>
     <script>
         function guesser() {
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
 
-            for (let i = 0; i < 6; i++) {
+            function askQuestion() {
                 let middle_number = Math.floor((min_value + max_value) / 2);
                 let response = prompt("Is your number higher or lower than: " + middle_number + "? (higher/lower/same)");
 
                 if (response.toLowerCase() === "same") {
-                    alert("The bot guessed the number! Thanks for playing!");
+                    document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
                     guessed = true;
-                    break;
                 } else if (response.toLowerCase() === "higher") {
                     min_value = middle_number + 1;
                 } else if (response.toLowerCase() === "lower") {
                     max_value = middle_number - 1;
                 }
+
+                return guessed;
+            }
+
+            for (let i = 0; i < 6; i++) {
+                if (askQuestion()) {
+                    break;
+                }
             }
 
             if (!guessed) {
-                alert("The bot couldn't guess your number. Thanks for playing!");
+                document.getElementById("result").innerText = "The bot couldn't guess your number. Thanks for playing!";
             }
         }
     </script>
 </head>
-<body onload="guesser()">
+<body>
     <h1>Number Guesser</h1>
-    <p>Follow the instructions to play the game.</p>
+    <p>Think of a number between 1 and 100 and follow the instructions below:</p>
+    <button onclick="guesser()">Start Game</button>
+    <p id="result"></p>
 </body>
 </html>
