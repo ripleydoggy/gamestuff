@@ -58,15 +58,15 @@
                 document.getElementById("final").innerText = "Game over! You have no more chips.";
             } else {
                 setTimeout(() => {
-                    if (confirm("Do you want to play again?")) {
+                    const playAgain = confirm("Do you want to play again?");
+                    if (playAgain) {
                         document.getElementById("bet").value = '';
                         document.getElementById("guess").value = '';
                         document.getElementById("result").innerText = '';
-                        document.getElementById("final").innerText = '';
                     } else {
                         document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                     }
-                }, 500);
+                }, 500);  // Adding a delay to ensure the result is displayed before the prompt
             }
         }
     </script>
