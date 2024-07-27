@@ -28,12 +28,11 @@
 </head>
 <body>
     <h1>Roulette</h1>
-    <p>You have 100 chips. Enter your bet and guess a number between 1 and 36:</p>
+    <p>You have <span id="chip-count">100</span> chips. Enter your bet and guess a number between 1 and 36:</p>
     <input type="number" id="bet" placeholder="Your bet" min="1">
     <input type="number" id="guess" placeholder="Your guess" min="1" max="36">
     <button onclick="spin()">Spin the Wheel</button>
     <p id="result"></p>
-    <p id="chips">Your new chip count is: 100</p>
     <p id="final"></p>
     <a class="home-button" href="index.html">Home</a>
     <script>
@@ -66,7 +65,7 @@
             }
 
             document.getElementById("result").innerText = message;
-            document.getElementById("chips").innerText = `Your new chip count is: ${chips}`;
+            document.getElementById("chip-count").innerText = chips;
 
             if (chips <= 0) {
                 document.getElementById("final").innerText = "Game over! You have no more chips.";
