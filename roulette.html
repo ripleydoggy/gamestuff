@@ -53,16 +53,16 @@
                 return;
             }
 
-            const hi = Math.floor(Math.random() * 36) + 1;
-            const color = hi % 2 === 0 ? "black" : "red";
+            const number = Math.floor(Math.random() * 36) + 1;
+            const color = number % 2 === 0 ? "black" : "red";
 
             let message = '';
-            if (guess !== hi) {
+            if (guess !== number) {
                 chips -= bet;
-                message = `The wheel landed on ${hi} (${color}). You lost!`;
+                message = `The wheel landed on ${number} (${color}). You lost!`;
             } else {
                 chips += bet * 36;
-                message = `The wheel landed on ${hi} (${color}). You won!`;
+                message = `The wheel landed on ${number} (${color}). You won!`;
             }
 
             document.getElementById("result").innerText = message;
@@ -79,7 +79,7 @@
                     } else {
                         document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                     }
-                }, 1000); // Delay to ensure the result is shown before the prompt
+                }, 1000);
             }
         }
     </script>
