@@ -13,6 +13,17 @@
         input {
             margin: 10px;
         }
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -36,40 +47,4 @@
                 return;
             }
 
-            if (bet > chips) {
-                alert("Insufficient funds. Try again.");
-                return;
-            }
-
-            const hi = Math.floor(Math.random() * 36) + 1;
-            const color = hi % 2 === 0 ? "black" : "red";
-
-            let message = '';
-            if (guess !== hi) {
-                chips -= bet;
-                message = `The wheel landed on ${hi} (${color}). You lost!`;
-            } else {
-                chips += bet * 36;
-                message = `The wheel landed on ${hi} (${color}). You won!`;
-            }
-
-            document.getElementById("result").innerText = message;
-            document.getElementById("chips").innerText = `Your new chip count is: ${chips}`;
-
-            if (chips <= 0) {
-                document.getElementById("final").innerText = "Game over! You have no more chips.";
-            } else {
-                setTimeout(() => {
-                    if (confirm("Do you want to play again?")) {
-                        document.getElementById("bet").value = '';
-                        document.getElementById("guess").value = '';
-                        document.getElementById("result").innerText = '';
-                    } else {
-                        document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
-                    }
-                }, 1000); // Delay to ensure the result is shown before the prompt
-            }
-        }
-    </script>
-</body>
-</html>
+            if (bet > chips)
