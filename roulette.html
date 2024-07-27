@@ -29,7 +29,7 @@
 <body>
     <h1>Roulette</h1>
     <p>You have 100 chips. Enter your bet and guess a number between 1 and 36:</p>
-    <input type="number" id="bet" placeholder="Your bet">
+    <input type="number" id="bet" placeholder="Your bet" min="1">
     <input type="number" id="guess" placeholder="Your guess" min="1" max="36">
     <button onclick="spin()">Spin the Wheel</button>
     <p id="result"></p>
@@ -79,7 +79,7 @@
                     } else {
                         document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                     }
-                }, 1000);
+                }, 1000); // Delay to ensure the result is shown before the prompt
             }
         }
     </script>
