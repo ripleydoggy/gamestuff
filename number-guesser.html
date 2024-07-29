@@ -42,9 +42,9 @@
                     document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
                     guessed = true;
                 } else if (response.toLowerCase() === "higher") {
-                    min_value = middle_number;
+                    min_value = middle_number; // Update min_value to the current middle_number
                 } else if (response.toLowerCase() === "lower") {
-                    max_value = middle_number;
+                    max_value = middle_number; // Update max_value to the current middle_number
                 } else {
                     alert("Please enter 'higher', 'lower', or 'same'.");
                 }
