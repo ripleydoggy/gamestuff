@@ -27,13 +27,13 @@
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
-            let decimalThreshold = 0.5; // Threshold for using decimal places
+            let decimalThreshold = 1; // Use decimal places if the range is smaller than this threshold
 
             function askQuestion() {
                 let range = max_value - min_value;
                 let middle_number = (min_value + max_value) / 2;
 
-                // Use decimals if the range is smaller than the threshold
+                // Display as decimal if the range is smaller than the threshold
                 let display_number = range < decimalThreshold ? middle_number.toFixed(2) : Math.round(middle_number);
                 
                 let response = prompt("Is your number higher or lower than: " + display_number + "? (higher/lower/same)");
@@ -45,6 +45,8 @@
                     min_value = middle_number;
                 } else if (response.toLowerCase() === "lower") {
                     max_value = middle_number;
+                } else {
+                    alert("Please enter 'higher', 'lower', or 'same'.");
                 }
 
                 return guessed;
