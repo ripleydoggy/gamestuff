@@ -27,27 +27,26 @@
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
-            let decimalThreshold = 1; // Display decimal if range is smaller than this
+            let decimalThreshold = 1; // Use decimal places if the range is smaller than this
 
             function askQuestion() {
-                let range = max_value - min_value;
                 let middle_number = (min_value + max_value) / 2;
+                let range = max_value - min_value;
 
-                // Log values for debugging
-                console.log(`min_value: ${min_value}, max_value: ${max_value}, middle_number: ${middle_number}`);
-
-                // Display middle number as decimal if range is smaller than the threshold
+                // Display the middle number with appropriate formatting
                 let display_number = range < decimalThreshold ? middle_number.toFixed(2) : Math.round(middle_number);
-                
+
+                // Prompt user for their number's position relative to the middle number
                 let response = prompt("Is your number higher or lower than: " + display_number + "? (higher/lower/same)");
 
+                // Process the user's response
                 if (response.toLowerCase() === "same") {
                     document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
                     guessed = true;
                 } else if (response.toLowerCase() === "higher") {
-                    min_value = middle_number + 1; // Correctly update min_value
+                    min_value = middle_number + 1; // Correctly adjust min_value
                 } else if (response.toLowerCase() === "lower") {
-                    max_value = middle_number - 1; // Correctly update max_value
+                    max_value = middle_number - 1; // Correctly adjust max_value
                 } else {
                     alert("Please enter 'higher', 'lower', or 'same'.");
                 }
@@ -55,6 +54,7 @@
                 return guessed;
             }
 
+            // Limit to 6 guesses
             for (let i = 0; i < 6; i++) {
                 if (askQuestion()) {
                     break;
