@@ -12,7 +12,7 @@
         }
         .home-button {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -27,12 +27,16 @@
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
-            let decimalPlaces = 2;
+            let decimalThreshold = 0.5; // Threshold for using decimal places
 
             function askQuestion() {
+                let range = max_value - min_value;
                 let middle_number = (min_value + max_value) / 2;
-                middle_number = parseFloat(middle_number.toFixed(decimalPlaces)); // Round to the specified number of decimal places
-                let response = prompt("Is your number higher or lower than: " + middle_number + "? (higher/lower/same)");
+
+                // Use decimals if the range is smaller than the threshold
+                let display_number = range < decimalThreshold ? middle_number.toFixed(2) : Math.round(middle_number);
+                
+                let response = prompt("Is your number higher or lower than: " + display_number + "? (higher/lower/same)");
 
                 if (response.toLowerCase() === "same") {
                     document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
