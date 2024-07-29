@@ -27,16 +27,16 @@
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
-            let decimalThreshold = 1; // Use decimal places if the range is smaller than this threshold
+            let decimalThreshold = 1; // Display decimal if range is smaller than this
 
             function askQuestion() {
                 let range = max_value - min_value;
                 let middle_number = (min_value + max_value) / 2;
 
-                // Log the current values and middle number for debugging
+                // Log values for debugging
                 console.log(`min_value: ${min_value}, max_value: ${max_value}, middle_number: ${middle_number}`);
 
-                // Display as decimal if the range is smaller than the threshold
+                // Display middle number as decimal if range is smaller than the threshold
                 let display_number = range < decimalThreshold ? middle_number.toFixed(2) : Math.round(middle_number);
                 
                 let response = prompt("Is your number higher or lower than: " + display_number + "? (higher/lower/same)");
@@ -45,9 +45,9 @@
                     document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
                     guessed = true;
                 } else if (response.toLowerCase() === "higher") {
-                    min_value = middle_number; // Update min_value to the current middle_number
+                    min_value = middle_number + 1; // Correctly update min_value
                 } else if (response.toLowerCase() === "lower") {
-                    max_value = middle_number; // Update max_value to the current middle_number
+                    max_value = middle_number - 1; // Correctly update max_value
                 } else {
                     alert("Please enter 'higher', 'lower', or 'same'.");
                 }
