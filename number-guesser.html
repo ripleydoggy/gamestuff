@@ -27,18 +27,20 @@
             let min_value = 1;
             let max_value = 100;
             let guessed = false;
+            let decimalPlaces = 2;
 
             function askQuestion() {
-                let middle_number = Math.floor((min_value + max_value) / 2);
+                let middle_number = (min_value + max_value) / 2;
+                middle_number = parseFloat(middle_number.toFixed(decimalPlaces)); // Round to the specified number of decimal places
                 let response = prompt("Is your number higher or lower than: " + middle_number + "? (higher/lower/same)");
 
                 if (response.toLowerCase() === "same") {
                     document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
                     guessed = true;
                 } else if (response.toLowerCase() === "higher") {
-                    min_value = middle_number + 1;
+                    min_value = middle_number;
                 } else if (response.toLowerCase() === "lower") {
-                    max_value = middle_number - 1;
+                    max_value = middle_number;
                 }
 
                 return guessed;
