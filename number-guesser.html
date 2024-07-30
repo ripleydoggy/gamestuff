@@ -21,54 +21,87 @@
             font-size: 16px;
             margin-top: 20px;
         }
+        .game-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px;
+        }
     </style>
     <script>
-        function guesser() {
-            let min_value = 1;
-            let max_value = 100;
-            let guessed = false;
+        let min_value = 0;
+        let max_value = 100;
+        let guessed = false;
+        const max_guesses = 6;
+        const increment = 0.00000000001; // Small increment to handle precision
+        let guess_count = 0;
 
-            function askQuestion() {
-                let middle_number = (min_value + max_value) / 2;
-                let display_number = middle_number.toFixed(2); // Display with two decimal places for clarity
+        function startGame() {
+            min_value = 0;
+            max_value = 100;
+            guessed = false;
+            guess_count = 0;
+            document.getElementById("result").innerText = "";
+            document.getElementById("higher-button").style.display = "inline-block";
+            document.getElementById("lower-button").style.display = "inline-block";
+            document.getElementById("same-button").style.display = "inline-block";
+            document.getElementById("start-button").style.display = "none"; // Hide the start button
+            nextGuess();
+        }
 
-                // Debugging output
-                console.log(`min_value: ${min_value}, max_value: ${max_value}, middle_number: ${middle_number}`);
-
-                let response = prompt(`Is your number higher or lower than: ${display_number}? (higher/lower/same)`);
-                
-                // Process user response
-                if (response.toLowerCase() === "same") {
-                    document.getElementById("result").innerText = "The bot guessed the number! Thanks for playing!";
-                    guessed = true;
-                } else if (response.toLowerCase() === "higher") {
-                    min_value = middle_number + 0.01; // Slightly increase min_value to avoid overlap
-                } else if (response.toLowerCase() === "lower") {
-                    max_value = middle_number - 0.01; // Slightly decrease max_value to avoid overlap
-                } else {
-                    alert("Please enter 'higher', 'lower', or 'same'.");
+        function nextGuess() {
+            if (guessed || guess_count >= max_guesses) {
+                if (!guessed) {
+                    let last_middle_number = Math.round((min_value + max_value) / 2); // Round to nearest integer
+                    document.getElementById("result").innerText = `The bot couldn't guess your number. Thanks for playing! Was this your number? ${last_middle_number}.`;
                 }
-
-                return guessed;
+                document.getElementById("higher-button").style.display = "none";
+                document.getElementById("lower-button").style.display = "none";
+                document.getElementById("same-button").style.display = "none";
+                return;
             }
 
-            // Limit to 6 guesses
-            for (let i = 0; i < 6; i++) {
-                if (askQuestion()) {
-                    break;
-                }
+            let middle_number = (min_value + max_value) / 2;
+            let display_number = middle_number.toFixed(1);
+
+            document.getElementById("result").innerText = `Is your number higher or lower than: ${display_number}?`;
+            document.getElementById("higher-button").onclick = () => handleResponse("higher");
+            document.getElementById("lower-button").onclick = () => handleResponse("lower");
+            document.getElementById("same-button").onclick = () => handleResponse("same");
+        }
+
+        function handleResponse(response) {
+            let middle_number = (min_value + max_value) / 2;
+            if (response === "same") {
+                let rounded_number = Math.round(middle_number); // Round to nearest integer
+                document.getElementById("result").innerText = `The bot guessed the number! Thanks for playing! The exact number was ${rounded_number}.`;
+                guessed = true;
+            } else if (response === "higher") {
+                min_value = middle_number + increment;
+            } else if (response === "lower") {
+                max_value = middle_number - increment;
+            } else {
+                alert("Invalid response. Please click the appropriate button.");
+                return;
             }
 
-            if (!guessed) {
-                document.getElementById("result").innerText = "The bot couldn't guess your number. Thanks for playing!";
-            }
+            guess_count++;
+            nextGuess();
         }
     </script>
 </head>
 <body>
     <h1>Number Guesser</h1>
-    <p>Think of a number between 1 and 100 and follow the instructions below:</p>
-    <button onclick="guesser()">Start Game</button>
+    <p>Think of a number between 0 and 100 and follow the instructions below:</p>
+    <button class="game-button" id="start-button" onclick="startGame()">Start Game</button>
+    <button class="game-button" id="higher-button" style="display:none;">Higher</button>
+    <button class="game-button" id="lower-button" style="display:none;">Lower</button>
+    <button class="game-button" id="same-button" style="display:none;">Same</button>
     <p id="result"></p>
     <a class="home-button" href="index.html">Home</a>
 </body>
