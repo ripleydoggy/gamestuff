@@ -46,6 +46,13 @@
             display: none;
             margin: 20px;
         }
+        .additional-bet-fields {
+            margin: 20px;
+        }
+        .additional-bet-fields input {
+            display: block;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
@@ -56,12 +63,20 @@
         <button class="color" onclick="showBetFields('color')">Bet on Colors</button>
     </div>
     <div id="bet-fields-number" class="bet-fields">
-        <input type="number" id="bet-number" placeholder="Your bet" min="1">
-        <input type="number" id="guess-number" placeholder="Your number (1-36)" min="1" max="36">
+        <input type="number" id="bet-number" placeholder="Your bet" min="1" oninput="updateMultiplier()">
+        <input type="number" id="multiplier" placeholder="Multiplier (1, 2, 3)" min="1" max="3" oninput="updateMultiplier()">
+        <div id="number-inputs">
+            <input type="number" id="guess-number1" placeholder="Your number (1-36)" min="1" max="36">
+            <input type="number" id="guess-number2" placeholder="Your number (1-36)" min="1" max="36" style="display: none;">
+            <input type="number" id="guess-number3" placeholder="Your number (1-36)" min="1" max="36" style="display: none;">
+        </div>
     </div>
     <div id="bet-fields-color" class="bet-fields">
-        <input type="number" id="bet-color" placeholder="Your bet" min="1">
+        <input type="number" id="bet-color" placeholder="Your bet" min="1" oninput="updateMultiplier()">
         <input type="text" id="guess-color" placeholder="Red or Black">
+    </div>
+    <div id="additional-bet-fields" class="additional-bet-fields" style="display: none;">
+        <p>Your bet amount is: <span id="final-bet-amount">0</span></p>
     </div>
     <button onclick="spin()">Spin the Wheel</button>
     <p id="result"></p>
@@ -70,21 +85,47 @@
     <script>
         let chips = 100;
         let currentBetType = '';
+        let multiplier = 1; // Default multiplier
 
         function showBetFields(type) {
             currentBetType = type;
             document.getElementById('bet-fields-number').style.display = type === 'number' ? 'block' : 'none';
             document.getElementById('bet-fields-color').style.display = type === 'color' ? 'block' : 'none';
+            document.getElementById('additional-bet-fields').style.display = 'none'; // Hide additional fields initially
+            document.getElementById('multiplier').value = 1; // Reset multiplier to 1
+            updateMultiplier(); // Update the bet amount display
+        }
+
+        function updateMultiplier() {
+            multiplier = parseInt(document.getElementById('multiplier').value) || 1; // Default to 1 if multiplier is not set
+            const betField = currentBetType === 'number' ? document.getElementById('bet-number') : document.getElementById('bet-color');
+            const betAmount = betField ? parseInt(betField.value) || 0 : 0;
+            
+            // Show or hide number input fields based on the multiplier
+            const numberInputs = document.querySelectorAll('#number-inputs input');
+            for (let i = 0; i < 3; i++) {
+                numberInputs[i].style.display = (i < multiplier) ? 'block' : 'none';
+            }
+
+            // Show additional betting fields and update bet amount display
+            if (betAmount > 0 && [1, 2, 3].includes(multiplier)) {
+                document.getElementById('additional-bet-fields').style.display = 'block';
+                document.getElementById('final-bet-amount').innerText = betAmount * multiplier;
+            } else {
+                document.getElementById('additional-bet-fields').style.display = 'none';
+            }
         }
 
         function spin() {
-            let bet, guessNumber, guessColor;
+            let bet, guessNumbers, guessColor;
+            const numberInputs = Array.from(document.querySelectorAll('#number-inputs input')).map(input => parseInt(input.value) || 0);
+            const uniqueGuesses = [...new Set(numberInputs)].filter(num => num > 0 && num <= 36);
 
             if (currentBetType === 'number') {
                 bet = parseInt(document.getElementById("bet-number").value);
-                guessNumber = parseInt(document.getElementById("guess-number").value);
-                if (isNaN(bet) || bet <= 0 || guessNumber < 1 || guessNumber > 36) {
-                    alert("Please enter a valid bet and number.");
+                guessNumbers = uniqueGuesses;
+                if (isNaN(bet) || bet <= 0 || guessNumbers.length === 0 || guessNumbers.some(num => num < 1 || num > 36)) {
+                    alert("Please enter a valid bet and number(s).");
                     return;
                 }
             } else if (currentBetType === 'color') {
@@ -105,15 +146,22 @@
             const color = number % 2 === 0 ? "black" : "red";
 
             let message = '';
-            if (currentBetType === 'number' && guessNumber === number) {
-                chips += bet * 36;
-                message = `The wheel landed on ${number} (${color}). You won!`;
-            } else if (currentBetType === 'color' && guessColor === color) {
-                chips += bet;
-                message = `The wheel landed on ${number} (${color}). You guessed the color correctly!`;
-            } else {
-                chips -= bet;
-                message = `The wheel landed on ${number} (${color}). You lost!`;
+            if (currentBetType === 'number') {
+                if (guessNumbers.includes(number)) {
+                    chips += bet * multiplier * 36;
+                    message = `The wheel landed on ${number} (${color}). You won!`;
+                } else {
+                    chips -= bet * multiplier;
+                    message = `The wheel landed on ${number} (${color}). You lost!`;
+                }
+            } else if (currentBetType === 'color') {
+                if (guessColor === color) {
+                    chips += bet * 2; // Double the bet for color correctness
+                    message = `The wheel landed on ${number} (${color}). You guessed the color correctly!`;
+                } else {
+                    chips -= bet;
+                    message = `The wheel landed on ${number} (${color}). You lost!`;
+                }
             }
 
             document.getElementById("result").innerText = message;
@@ -125,10 +173,15 @@
                 setTimeout(() => {
                     if (confirm("Do you want to play again?")) {
                         document.getElementById("bet-number").value = '';
-                        document.getElementById("guess-number").value = '';
+                        document.getElementById("guess-number1").value = '';
+                        document.getElementById("guess-number2").value = '';
+                        document.getElementById("guess-number3").value = '';
                         document.getElementById("bet-color").value = '';
                         document.getElementById("guess-color").value = '';
+                        document.getElementById("multiplier").value = '';
+                        document.getElementById("final-bet-amount").innerText = '0';
                         document.getElementById("result").innerText = '';
+                        document.getElementById('additional-bet-fields').style.display = 'none';
                     } else {
                         document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                     }
