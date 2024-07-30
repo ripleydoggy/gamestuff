@@ -148,10 +148,11 @@
             let message = '';
             if (currentBetType === 'number') {
                 if (guessNumbers.includes(number)) {
-                    chips += bet * multiplier * 36;
+                    // Bet amount multiplied by the number of correct guesses
+                    chips += bet * (multiplier * 36); // Correct number bets payout
                     message = `The wheel landed on ${number} (${color}). You won!`;
                 } else {
-                    chips -= bet * multiplier;
+                    chips -= bet * multiplier; // Deduct total bet
                     message = `The wheel landed on ${number} (${color}). You lost!`;
                 }
             } else if (currentBetType === 'color') {
@@ -181,7 +182,6 @@
                         document.getElementById("multiplier").value = '';
                         document.getElementById("final-bet-amount").innerText = '0';
                         document.getElementById("result").innerText = '';
-                        document.getElementById('additional-bet-fields').style.display = 'none';
                     } else {
                         document.getElementById("final").innerText = `Game over! Your final chip count is ${chips}.`;
                     }
