@@ -63,8 +63,8 @@
         <button class="color" onclick="showBetFields('color')">Bet on Colors</button>
     </div>
     <div id="bet-fields-number" class="bet-fields">
-        <input type="number" id="bet-number" placeholder="Your bet" min="1" oninput="updateMultiplier()">
-        <input type="number" id="multiplier" placeholder="Multiplier (1, 2, 3)" min="1" max="3" oninput="updateMultiplier()">
+        <input type="number" id="bet-number" placeholder="Your bet" min="1" oninput="updateBetAmount()">
+        <input type="number" id="multiplier" placeholder="Multiplier (1, 2, 3)" min="1" max="3" oninput="updateBetAmount()">
         <div id="number-inputs">
             <input type="number" id="guess-number1" placeholder="Your number (1-36)" min="1" max="36">
             <input type="number" id="guess-number2" placeholder="Your number (1-36)" min="1" max="36" style="display: none;">
@@ -72,7 +72,7 @@
         </div>
     </div>
     <div id="bet-fields-color" class="bet-fields">
-        <input type="number" id="bet-color" placeholder="Your bet" min="1" oninput="updateMultiplier()">
+        <input type="number" id="bet-color" placeholder="Your bet" min="1" oninput="updateBetAmount()">
         <input type="text" id="guess-color" placeholder="Red or Black">
     </div>
     <div id="additional-bet-fields" class="additional-bet-fields" style="display: none;">
@@ -93,14 +93,14 @@
             document.getElementById('bet-fields-color').style.display = type === 'color' ? 'block' : 'none';
             document.getElementById('additional-bet-fields').style.display = 'none'; // Hide additional fields initially
             document.getElementById('multiplier').value = 1; // Reset multiplier to 1
-            updateMultiplier(); // Update the bet amount display
+            updateBetAmount(); // Update the bet amount display
         }
 
-        function updateMultiplier() {
+        function updateBetAmount() {
             multiplier = parseInt(document.getElementById('multiplier').value) || 1; // Default to 1 if multiplier is not set
             const betField = currentBetType === 'number' ? document.getElementById('bet-number') : document.getElementById('bet-color');
             const betAmount = betField ? parseInt(betField.value) || 0 : 0;
-            
+
             // Show or hide number input fields based on the multiplier
             const numberInputs = document.querySelectorAll('#number-inputs input');
             for (let i = 0; i < 3; i++) {
@@ -148,8 +148,8 @@
             let message = '';
             if (currentBetType === 'number') {
                 if (guessNumbers.includes(number)) {
-                    // Bet amount multiplied by the number of correct guesses
-                    chips += bet * (multiplier * 36); // Correct number bets payout
+                    // Correct number bets payout
+                    chips += bet * (multiplier * 36);
                     message = `The wheel landed on ${number} (${color}). You won!`;
                 } else {
                     chips -= bet * multiplier; // Deduct total bet
@@ -157,7 +157,7 @@
                 }
             } else if (currentBetType === 'color') {
                 if (guessColor === color) {
-                    chips += bet * 1.5; // Double the bet for color correctness
+                    chips += bet * 2; // Double the bet for color correctness
                     message = `The wheel landed on ${number} (${color}). You guessed the color correctly!`;
                 } else {
                     chips -= bet;
