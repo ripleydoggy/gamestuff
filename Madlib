@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madlib Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .home-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .game-section {
+            margin-bottom: 40px;
+        }
+        input {
+            margin: 5px;
+            padding: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function generateMadlib1() {
+            const adjective = document.getElementById("adjective").value;
+            const animal = document.getElementById("animal").value;
+            const adjective1 = document.getElementById("adjective1").value;
+            const adjective2 = document.getElementById("adjective2").value;
+            const name = document.getElementById("name").value;
+            const verbPastTense = document.getElementById("verbPastTense").value;
+            const adjective3 = document.getElementById("adjective3").value;
+            const color = document.getElementById("color").value;
+            const noun = document.getElementById("noun").value;
+            const verb = document.getElementById("verb").value;
+            const emotion = document.getElementById("emotion").value;
+            const verb1 = document.getElementById("verb1").value;
+            const adjective4 = document.getElementById("adjective4").value;
+            const tool = document.getElementById("tool").value;
+            const verb2 = document.getElementById("verb2").value;
+            const adjective5 = document.getElementById("adjective5").value;
+            const adjective6 = document.getElementById("adjective6").value;
+            const noun1 = document.getElementById("noun1").value;
+            const adjective7 = document.getElementById("adjective7").value;
+            const noun2 = document.getElementById("noun2").value;
+            const noun3 = document.getElementById("noun3").value;
+            const noun4 = document.getElementById("noun4").value;
+            const activity = document.getElementById("activity").value;
+            const verb3 = document.getElementById("verb3").value;
+            const verb4 = document.getElementById("verb4").value;
+            const verb5 = document.getElementById("verb5").value;
+
+            const story = `
+                Title: The Amazing Adventure of ${adjective} ${animal}
+                
+                Once upon a time, in a ${adjective1} forest, there lived a ${adjective2} ${animal} named ${name}. ${name} loved to ${verb} every day, but one morning, something ${adjective3} happened. A ${color} ${noun} appeared out of nowhere and started to ${verb1}.
+                
+                Feeling ${emotion}, ${name} decided to ${verb2} after the ${noun1}. With a ${adjective4} ${tool} in hand, they ${verb3} through the ${adjective5} forest. After a ${adjective6} chase, they finally caught the ${noun2} and discovered it was actually a ${adjective7} ${noun3} who just wanted to play a game of ${activity}.
+                
+                In the end, ${name} and the ${noun4} became best friends and lived happily ever after, always ${verb4} and ${verb5} together.
+            `;
+            document.getElementById("madlib1-result").innerText = story;
+        }
+
+        function generateMadlib2() {
+            const adjective1 = document.getElementById("adjective1-2").value;
+            const place = document.getElementById("place").value;
+            const verbPastTense = document.getElementById("verbPastTense-2").value;
+            const famousPerson = document.getElementById("famousPerson").value;
+            const noun1 = document.getElementById("noun1-2").value;
+            const verb = document.getElementById("verb-2").value;
+            const color = document.getElementById("color-2").value;
+            const adjective2 = document.getElementById("adjective2-2").value;
+            const noun2 = document.getElementById("noun2-2").value;
+            const emotion = document.getElementById("emotion-2").value;
+            const verb1 = document.getElementById("verb1-2").value;
+            const verb2 = document.getElementById("verb2-2").value;
+
+            const story = `
+                Title: A ${adjective1} Day in ${place}
+                
+                It was a ${adjective1} day in ${place}. Suddenly, the sky ${verbPastTense} and ${famousPerson} appeared holding a ${noun1}. Everyone started to ${verb}, as the ${color} sky turned ${adjective2}. Just then, a ${noun2} appeared, making everyone feel ${emotion}. ${famousPerson} then decided to ${verb1}, and the whole crowd started to ${verb2}.
+            `;
+            document.getElementById("madlib2-result").innerText = story;
+        }
+
+        function generateMadlib3() {
+            const animal = document.getElementById("animal-3").value;
+            const place = document.getElementById("place-3").value;
+            const adjective = document.getElementById("adjective-3").value;
+            const verb = document.getElementById("verb-3").value;
+            const noun1 = document.getElementById("noun1-3").value;
+            const emotion = document.getElementById("emotion-3").value;
+            const verbPastTense = document.getElementById("verbPastTense-3").value;
+            const adjective1 = document.getElementById("adjective1-3").value;
+            const noun2 = document.getElementById("noun2-3").value;
+            const color = document.getElementById("color-3").value;
+            const verb1 = document.getElementById("verb1-3").value;
+            const noun3 = document.getElementById("noun3-3").value;
+            const adjective2 = document.getElementById("adjective2-3").value;
+
+            const story = `
+                Title: The ${animal} Adventure in ${place}
+                
+                One day, a ${adjective} ${animal} decided to ${verb} in ${place}. While wandering, the ${animal} found a ${noun1} that made it feel ${emotion}. Just then, it ${verbPastTense} and met a ${adjective1} ${noun2} that was ${color}. Together, they decided to ${verb1} the ${noun3} and had a ${adjective2} time.
+            `;
+            document.getElementById("madlib3-result").innerText = story;
+        }
+
+        function generateMadlib4() {
+            const name = document.getElementById("name-4").value;
+            const adjective = document.getElementById("adjective-4").value;
+            const noun1 = document.getElementById("noun1-4").value;
+            const verb = document.getElementById("verb-4").value;
+            const place = document.getElementById("place-4").value;
+            const color = document.getElementById("color-4").value;
+            const adjective1 = document.getElementById("adjective1-4").value;
+            const noun2 = document.getElementById("noun2-4").value;
+            const emotion = document.getElementById("emotion-4").value;
+            const verbPastTense = document.getElementById("verbPastTense-4").value;
+            const adjective2 = document.getElementById("adjective2-4").value;
+
+            const story = `
+                Title: ${name}'s ${adjective} Adventure
+                
+                ${adjective} ${name} decided to ${verb} in the ${place}. On the way, ${name} found a ${color} ${noun1} that was very ${adjective1}. Feeling ${emotion}, ${name} decided to ${verb} the ${noun2}. After a while, ${name} ${verbPastTense} and met a ${adjective2} friend who made the adventure unforgettable.
+            `;
+            document.getElementById("madlib4-result").innerText = story;
+        }
+    </script>
+</head>
+<body>
+    <h1>Madlib Games</h1>
+    <p>Select a Madlib to play:</p>
+
+    <div class="game-section">
+        <h2>Madlib 1: The Amazing Adventure</h2>
+        <input type="text" id="adjective" placeholder="Adjective">
+        <input type="text" id="animal" placeholder="Animal">
+        <input type="text" id="adjective1" placeholder="Adjective">
+        <input type="text" id="adjective2" placeholder="Adjective">
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="verbPastTense" placeholder="Verb (past tense)">
+        <input type="text" id="adjective3" placeholder="Adjective">
+        <input type="text" id="color" placeholder="Color">
+        <input type="text" id="noun" placeholder="Noun">
+        <input type="text" id="verb" placeholder="Verb">
+        <input type="text" id="emotion" placeholder="Emotion">
+        <input type="text" id="verb1" placeholder="Verb">
+        <input type="text" id="adjective4" placeholder="Adjective">
+        <input type="text" id="tool" placeholder="Tool">
+        <input type="text" id="verb2" placeholder="Verb">
+        <input type="text" id="adjective5" placeholder="Adjective">
+        <input type="text" id="adjective6" placeholder="Adjective">
+        <input type="text" id="noun1" placeholder="Noun">
+        <input type="text" id="adjective7" placeholder="Adjective">
+        <input type="text" id="noun2" placeholder="Noun">
+        <input type="text" id="noun3" placeholder="Noun">
+        <input type="text" id="noun4" placeholder="Noun">
+        <input type="text" id="activity" placeholder="Activity">
+        <input type="text" id="verb3" placeholder="Verb">
+        <input type="text" id="verb4" placeholder="Verb">
+        <input type="text" id="verb5" placeholder="Verb">
+        <button onclick="generateMadlib1()">Generate Madlib 1</button>
+        <p id="madlib1-result"></p>
+    </div>
+
+    <div class="game-section">
+        <h2>Madlib 2: A Day in the Place</h2>
+        <input type="text" id="adjective1-2" placeholder="Adjective">
+        <input type="text" id="place" placeholder="Place">
+        <input type="text" id="verbPastTense-2" placeholder="Verb (past tense)">
+        <input type="text" id="famousPerson" placeholder="Famous person">
+        <input type="text" id="noun1-2" placeholder="Noun">
+        <input type="text" id="verb-2" placeholder="Verb">
+        <input type="text" id="color-2" placeholder="Color">
+        <input type="text" id="adjective2-2" placeholder="Adjective">
+        <input type="text" id="noun2-2" placeholder="Noun">
+        <input type="text" id="emotion-2" placeholder="Emotion">
+        <input type="text" id="verb1-2" placeholder="Verb">
+        <input type="text" id="verb2-2" placeholder="Verb">
+        <button onclick="generateMadlib2()">Generate Madlib 2</button>
+        <p id="madlib2-result"></p>
+    </div>
+
+    <div class="game-section">
+        <h2>Madlib 3: The Adventure</h2>
+        <input type="text" id="animal-3" placeholder="Animal">
+        <input type="text" id="place-3" placeholder="Place">
+        <input type="text" id="adjective-3" placeholder="Adjective">
+        <input type="text" id="verb-3" placeholder="Verb">
+        <input type="text" id="noun1-3" placeholder="Noun">
+        <input type="text" id="emotion-3" placeholder="Emotion">
+        <input type="text" id="verbPastTense-3" placeholder="Verb (past tense)">
+        <input type="text" id="adjective1-3" placeholder="Adjective">
+        <input type="text" id="noun2-3" placeholder="Noun">
+        <input type="text" id="color-3" placeholder="Color">
+        <input type="text" id="verb1-3" placeholder="Verb">
+        <input type="text" id="noun3-3" placeholder="Noun">
+        <input type="text" id="adjective2-3" placeholder="Adjective">
+        <button onclick="generateMadlib3()">Generate Madlib 3</button>
+        <p id="madlib3-result"></p>
+    </div>
+
+    <div class="game-section">
+        <h2>Madlib 4: The Adventure</h2>
+        <input type="text" id="name-4" placeholder="Name">
+        <input type="text" id="adjective-4" placeholder="Adjective">
+        <input type="text" id="noun1-4" placeholder="Noun">
+        <input type="text" id="verb-4" placeholder="Verb">
+        <input type="text" id="place-4" placeholder="Place">
+        <input type="text" id="color-4" placeholder="Color">
+        <input type="text" id="adjective1-4" placeholder="Adjective">
+        <input type="text" id="noun2-4" placeholder="Noun">
+        <input type="text" id="emotion-4" placeholder="Emotion">
+        <input type="text" id="verbPastTense-4" placeholder="Verb (past tense)">
+        <input type="text" id="adjective2-4" placeholder="Adjective">
+        <button onclick="generateMadlib4()">Generate Madlib 4</button>
+        <p id="madlib4-result"></p>
+    </div>
+
+    <a class="home-button" href="index.html">Home</a>
+</body>
+</html>
