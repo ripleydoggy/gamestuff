@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Conversion Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Length Conversion Tool</h1>
+        <label for="value">Value:</label>
+        <input type="number" id="value" placeholder="Enter value" step="any">
+        
+        <label for="fromUnit">From:</label>
+        <select id="fromUnit">
+            <option value="kilometer">Kilometer</option>
+            <option value="meter">Meter</option>
+            <option value="centimeter">Centimeter</option>
+            <option value="millimeter">Millimeter</option>
+            <option value="mile">Mile</option>
+            <option value="yard">Yard</option>
+            <option value="feet">Feet</option>
+            <option value="inch">Inch</option>
+            <option value="nautical_mile">Nautical Mile</option>
+        </select>
+        
+        <label for="toUnit">To:</label>
+        <select id="toUnit">
+            <option value="kilometer">Kilometer</option>
+            <option value="meter">Meter</option>
+            <option value="centimeter">Centimeter</option>
+            <option value="millimeter">Millimeter</option>
+            <option value="mile">Mile</option>
+            <option value="yard">Yard</option>
+            <option value="feet">Feet</option>
+            <option value="inch">Inch</option>
+            <option value="nautical_mile">Nautical Mile</option>
+        </select>
+        
+        <button onclick="convert()">Convert</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const conversionRates = {
+            kilometer: {
+                meter: 1000,
+                centimeter: 100000,
+                millimeter: 1000000,
+                mile: 0.621371,
+                yard: 1094,
+                feet: 3280.84,
+                inch: 39370.1,
+                nautical_mile: 0.539957
+            },
+            meter: {
+                kilometer: 0.001,
+                centimeter: 100,
+                millimeter: 1000,
+                mile: 0.000621371,
+                yard: 1.09361,
+                feet: 3.28084,
+                inch: 39.3701,
+                nautical_mile: 0.000539957
+            },
+            centimeter: {
+                kilometer: 0.00001,
+                meter: 0.01,
+                millimeter: 10,
+                mile: 0.00000621371,
+                yard: 0.0109361,
+                feet: 0.0328084,
+                inch: 0.393701,
+                nautical_mile: 0.00000539957
+            },
+            millimeter: {
+                kilometer: 0.000001,
+                meter: 0.001,
+                centimeter: 0.1,
+                mile: 0.000000621371,
+                yard: 0.00109361,
+                feet: 0.00328084,
+                inch: 0.0393701,
+                nautical_mile: 0.000000539957
+            },
+            mile: {
+                kilometer: 1.60934,
+                meter: 1609.34,
+                centimeter: 160934,
+                millimeter: 1609340,
+                yard: 1760,
+                feet: 5280,
+                inch: 63360,
+                nautical_mile: 0.868976
+            },
+            yard: {
+                kilometer: 0.0009144,
+                meter: 0.9144,
+                centimeter: 91.44,
+                millimeter: 914.4,
+                mile: 0.000568182,
+                feet: 3,
+                inch: 36,
+                nautical_mile: 0.000493737
+            },
+            feet: {
+                kilometer: 0.0003048,
+                meter: 0.3048,
+                centimeter: 30.48,
+                millimeter: 304.8,
+                mile: 0.000189394,
+                yard: 0.333333,
+                inch: 12,
+                nautical_mile: 0.000164579
+            },
+            inch: {
+                kilometer: 0.0000254,
+                meter: 0.0254,
+                centimeter: 2.54,
+                millimeter: 25.4,
+                mile: 0.0000157828,
+                yard: 0.0277778,
+                feet: 0.0833333,
+                nautical_mile: 0.0000137149
+            },
+            nautical_mile: {
+                kilometer: 1.852,
+                meter: 1852,
+                centimeter: 185200,
+                millimeter: 1852000,
+                mile: 1.15078,
+                yard: 2025.3716,
+                feet: 6076.11568,
+                inch: 73081.388
+            }
+        };
+
+        function convert() {
+            const value = parseFloat(document.getElementById("value").value);
+            const fromUnit = document.getElementById("fromUnit").value;
+            const toUnit = document.getElementById("toUnit").value;
+
+            if (isNaN(value)) {
+                document.getElementById("result").innerText = "Please enter a valid number.";
+                return;
+            }
+
+            if (fromUnit === toUnit) {
+                document.getElementById("result").innerText = `${value} ${fromUnit} is equal to ${value} ${toUnit}.`;
+                return;
+            }
+
+            const rate = conversionRates[fromUnit][toUnit];
+            const convertedValue = value * rate;
+
+            document.getElementById("result").innerText = `${value} ${fromUnit} is equal to ${convertedValue.toFixed(4)} ${toUnit}.`;
+        }
+    </script>
+</body>
+</html>
