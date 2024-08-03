@@ -38,110 +38,52 @@
         }
     </style>
     <script>
-        function generateMadlib1() {
-            const adjective = document.getElementById("adjective").value;
-            const animal = document.getElementById("animal").value;
-            const adjective1 = document.getElementById("adjective1").value;
-            const adjective2 = document.getElementById("adjective2").value;
-            const name = document.getElementById("name").value;
-            const verbPastTense = document.getElementById("verbPastTense").value;
-            const adjective3 = document.getElementById("adjective3").value;
-            const color = document.getElementById("color").value;
-            const noun = document.getElementById("noun").value;
-            const verb = document.getElementById("verb").value;
-            const emotion = document.getElementById("emotion").value;
-            const verb1 = document.getElementById("verb1").value;
-            const adjective4 = document.getElementById("adjective4").value;
-            const tool = document.getElementById("tool").value;
-            const verb2 = document.getElementById("verb2").value;
-            const adjective5 = document.getElementById("adjective5").value;
-            const adjective6 = document.getElementById("adjective6").value;
-            const noun1 = document.getElementById("noun1").value;
-            const adjective7 = document.getElementById("adjective7").value;
-            const noun2 = document.getElementById("noun2").value;
-            const noun3 = document.getElementById("noun3").value;
-            const noun4 = document.getElementById("noun4").value;
-            const activity = document.getElementById("activity").value;
-            const verb3 = document.getElementById("verb3").value;
-            const verb4 = document.getElementById("verb4").value;
-            const verb5 = document.getElementById("verb5").value;
+        function generateRandomMadlib() {
+            const madlibs = [
+                {
+                    title: "The Amazing Adventure",
+                    story: `
+                        Title: The Amazing Adventure of ${document.getElementById("adjective").value} ${document.getElementById("animal").value}
+                        
+                        Once upon a time, in a ${document.getElementById("adjective1").value} forest, there lived a ${document.getElementById("adjective2").value} ${document.getElementById("animal").value} named ${document.getElementById("name").value}. ${document.getElementById("name").value} loved to ${document.getElementById("verb").value} every day, but one morning, something ${document.getElementById("adjective3").value} happened. A ${document.getElementById("color").value} ${document.getElementById("noun").value} appeared out of nowhere and started to ${document.getElementById("verb1").value}.
+                        
+                        Feeling ${document.getElementById("emotion").value}, ${document.getElementById("name").value} decided to ${document.getElementById("verb2").value} after the ${document.getElementById("noun1").value}. With a ${document.getElementById("adjective4").value} ${document.getElementById("tool").value} in hand, they ${document.getElementById("verb3").value} through the ${document.getElementById("adjective5").value} forest. After a ${document.getElementById("adjective6").value} chase, they finally caught the ${document.getElementById("noun2").value} and discovered it was actually a ${document.getElementById("adjective7").value} ${document.getElementById("noun3").value} who just wanted to play a game of ${document.getElementById("activity").value}.
+                        
+                        In the end, ${document.getElementById("name").value} and the ${document.getElementById("noun4").value} became best friends and lived happily ever after, always ${document.getElementById("verb4").value} and ${document.getElementById("verb5").value} together.
+                    `
+                },
+                {
+                    title: "A Day in the Place",
+                    story: `
+                        Title: A ${document.getElementById("adjective1-2").value} Day in ${document.getElementById("place").value}
+                        
+                        It was a ${document.getElementById("adjective1-2").value} day in ${document.getElementById("place").value}. Suddenly, the sky ${document.getElementById("verbPastTense-2").value} and ${document.getElementById("famousPerson").value} appeared holding a ${document.getElementById("noun1-2").value}. Everyone started to ${document.getElementById("verb-2").value}, as the ${document.getElementById("color-2").value} sky turned ${document.getElementById("adjective2-2").value}. Just then, a ${document.getElementById("noun2-2").value} appeared, making everyone feel ${document.getElementById("emotion-2").value}. ${document.getElementById("famousPerson").value} then decided to ${document.getElementById("verb1-2").value}, and the whole crowd started to ${document.getElementById("verb2-2").value}.
+                    `
+                },
+                {
+                    title: "The Adventure",
+                    story: `
+                        Title: The ${document.getElementById("animal-3").value} Adventure in ${document.getElementById("place-3").value}
+                        
+                        One day, a ${document.getElementById("adjective-3").value} ${document.getElementById("animal-3").value} decided to ${document.getElementById("verb-3").value} in ${document.getElementById("place-3").value}. While wandering, the ${document.getElementById("animal-3").value} found a ${document.getElementById("noun1-3").value} that made it feel ${document.getElementById("emotion-3").value}. Just then, it ${document.getElementById("verbPastTense-3").value} and met a ${document.getElementById("adjective1-3").value} ${document.getElementById("noun2-3").value} that was ${document.getElementById("color-3").value}. Together, they decided to ${document.getElementById("verb1-3").value} the ${document.getElementById("noun3-3").value} and had a ${document.getElementById("adjective2-3").value} time.
+                    `
+                },
+                {
+                    title: `${document.getElementById("name-4").value}'s ${document.getElementById("adjective-4").value} Adventure`,
+                    story: `
+                        Title: ${document.getElementById("name-4").value}'s ${document.getElementById("adjective-4").value} Adventure
+                        
+                        ${document.getElementById("adjective-4").value} ${document.getElementById("name-4").value} decided to ${document.getElementById("verb-4").value} in the ${document.getElementById("place-4").value}. On the way, ${document.getElementById("name-4").value} found a ${document.getElementById("color-4").value} ${document.getElementById("noun1-4").value} that was very ${document.getElementById("adjective1-4").value}. Feeling ${document.getElementById("emotion-4").value}, ${document.getElementById("name-4").value} decided to ${document.getElementById("verb-4").value} the ${document.getElementById("noun2-4").value}. After a while, ${document.getElementById("name-4").value} ${document.getElementById("verbPastTense-4").value} and met a ${document.getElementById("adjective2-4").value} friend who made the adventure unforgettable.
+                    `
+                }
+            ];
 
-            const story = `
-                Title: The Amazing Adventure of ${adjective} ${animal}
-                
-                Once upon a time, in a ${adjective1} forest, there lived a ${adjective2} ${animal} named ${name}. ${name} loved to ${verb} every day, but one morning, something ${adjective3} happened. A ${color} ${noun} appeared out of nowhere and started to ${verb1}.
-                
-                Feeling ${emotion}, ${name} decided to ${verb2} after the ${noun1}. With a ${adjective4} ${tool} in hand, they ${verb3} through the ${adjective5} forest. After a ${adjective6} chase, they finally caught the ${noun2} and discovered it was actually a ${adjective7} ${noun3} who just wanted to play a game of ${activity}.
-                
-                In the end, ${name} and the ${noun4} became best friends and lived happily ever after, always ${verb4} and ${verb5} together.
-            `;
-            document.getElementById("madlib1-result").innerText = story;
-        }
+            // Randomly select a Madlib
+            const randomIndex = Math.floor(Math.random() * madlibs.length);
+            const selectedMadlib = madlibs[randomIndex];
 
-        function generateMadlib2() {
-            const adjective1 = document.getElementById("adjective1-2").value;
-            const place = document.getElementById("place").value;
-            const verbPastTense = document.getElementById("verbPastTense-2").value;
-            const famousPerson = document.getElementById("famousPerson").value;
-            const noun1 = document.getElementById("noun1-2").value;
-            const verb = document.getElementById("verb-2").value;
-            const color = document.getElementById("color-2").value;
-            const adjective2 = document.getElementById("adjective2-2").value;
-            const noun2 = document.getElementById("noun2-2").value;
-            const emotion = document.getElementById("emotion-2").value;
-            const verb1 = document.getElementById("verb1-2").value;
-            const verb2 = document.getElementById("verb2-2").value;
-
-            const story = `
-                Title: A ${adjective1} Day in ${place}
-                
-                It was a ${adjective1} day in ${place}. Suddenly, the sky ${verbPastTense} and ${famousPerson} appeared holding a ${noun1}. Everyone started to ${verb}, as the ${color} sky turned ${adjective2}. Just then, a ${noun2} appeared, making everyone feel ${emotion}. ${famousPerson} then decided to ${verb1}, and the whole crowd started to ${verb2}.
-            `;
-            document.getElementById("madlib2-result").innerText = story;
-        }
-
-        function generateMadlib3() {
-            const animal = document.getElementById("animal-3").value;
-            const place = document.getElementById("place-3").value;
-            const adjective = document.getElementById("adjective-3").value;
-            const verb = document.getElementById("verb-3").value;
-            const noun1 = document.getElementById("noun1-3").value;
-            const emotion = document.getElementById("emotion-3").value;
-            const verbPastTense = document.getElementById("verbPastTense-3").value;
-            const adjective1 = document.getElementById("adjective1-3").value;
-            const noun2 = document.getElementById("noun2-3").value;
-            const color = document.getElementById("color-3").value;
-            const verb1 = document.getElementById("verb1-3").value;
-            const noun3 = document.getElementById("noun3-3").value;
-            const adjective2 = document.getElementById("adjective2-3").value;
-
-            const story = `
-                Title: The ${animal} Adventure in ${place}
-                
-                One day, a ${adjective} ${animal} decided to ${verb} in ${place}. While wandering, the ${animal} found a ${noun1} that made it feel ${emotion}. Just then, it ${verbPastTense} and met a ${adjective1} ${noun2} that was ${color}. Together, they decided to ${verb1} the ${noun3} and had a ${adjective2} time.
-            `;
-            document.getElementById("madlib3-result").innerText = story;
-        }
-
-        function generateMadlib4() {
-            const name = document.getElementById("name-4").value;
-            const adjective = document.getElementById("adjective-4").value;
-            const noun1 = document.getElementById("noun1-4").value;
-            const verb = document.getElementById("verb-4").value;
-            const place = document.getElementById("place-4").value;
-            const color = document.getElementById("color-4").value;
-            const adjective1 = document.getElementById("adjective1-4").value;
-            const noun2 = document.getElementById("noun2-4").value;
-            const emotion = document.getElementById("emotion-4").value;
-            const verbPastTense = document.getElementById("verbPastTense-4").value;
-            const adjective2 = document.getElementById("adjective2-4").value;
-
-            const story = `
-                Title: ${name}'s ${adjective} Adventure
-                
-                ${adjective} ${name} decided to ${verb} in the ${place}. On the way, ${name} found a ${color} ${noun1} that was very ${adjective1}. Feeling ${emotion}, ${name} decided to ${verb} the ${noun2}. After a while, ${name} ${verbPastTense} and met a ${adjective2} friend who made the adventure unforgettable.
-            `;
-            document.getElementById("madlib4-result").innerText = story;
+            // Update the page with the selected Madlib
+            document.getElementById("madlib-result").innerText = `${selectedMadlib.title}\n\n${selectedMadlib.story}`;
         }
     </script>
 </head>
@@ -177,8 +119,6 @@
         <input type="text" id="verb3" placeholder="Verb">
         <input type="text" id="verb4" placeholder="Verb">
         <input type="text" id="verb5" placeholder="Verb">
-        <button onclick="generateMadlib1()">Generate Madlib 1</button>
-        <p id="madlib1-result"></p>
     </div>
 
     <div class="game-section">
@@ -195,8 +135,6 @@
         <input type="text" id="emotion-2" placeholder="Emotion">
         <input type="text" id="verb1-2" placeholder="Verb">
         <input type="text" id="verb2-2" placeholder="Verb">
-        <button onclick="generateMadlib2()">Generate Madlib 2</button>
-        <p id="madlib2-result"></p>
     </div>
 
     <div class="game-section">
@@ -214,8 +152,6 @@
         <input type="text" id="verb1-3" placeholder="Verb">
         <input type="text" id="noun3-3" placeholder="Noun">
         <input type="text" id="adjective2-3" placeholder="Adjective">
-        <button onclick="generateMadlib3()">Generate Madlib 3</button>
-        <p id="madlib3-result"></p>
     </div>
 
     <div class="game-section">
@@ -231,9 +167,10 @@
         <input type="text" id="emotion-4" placeholder="Emotion">
         <input type="text" id="verbPastTense-4" placeholder="Verb (past tense)">
         <input type="text" id="adjective2-4" placeholder="Adjective">
-        <button onclick="generateMadlib4()">Generate Madlib 4</button>
-        <p id="madlib4-result"></p>
     </div>
+
+    <button onclick="generateRandomMadlib()">Generate Random Madlib</button>
+    <p id="madlib-result"></p>
 
     <a class="home-button" href="index.html">Home</a>
 </body>
