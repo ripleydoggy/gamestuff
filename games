@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Game</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas" width="900" height="900"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Variables
+        let frameAmount = 59;
+        const FPS = 60;
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // Coin, Difficulty, Score, etc.
+        let coin = 0;
+        let chasespeed = 1;
+        let difficulty = 480;
+        let cost = 10;
+        let score = 0;
+        let hitCooldown = 1000;  // In milliseconds
+        let lastHitTime = 0;
+
+        // Player
+        const player = {
+            x: 700,
+            y: 700,
+            width: 10,
+            height: 10,
+            speed: 2,
+            color: 'blue'
+        };
+
+        // Weapon
+        const weapon = {
+            x: 700,
+            y: 700,
+            width: 20,
+            height: 35,
+            speed: 4.5
+        };
+
+        const weaponImg = new Image();
+        weaponImg.src = 'disdosd-removebg-preview.png';  // Your image path
+
+        // Enemies
+        const enemies = [];
+
+        function createNewEnemy() {
+            enemies.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                width: 10,
+                height: 10,
+                color: 'red',
+                health: 1
+            });
+        }
+
+        // Key handling
+        const keys = {};
+        window.addEventListener('keydown', (e) => { keys[e.key] = true; });
+        window.addEventListener('keyup', (e) => { keys[e.key] = false; });
+
+        // Game Functions
+        function movePlayer() {
+            if (keys['a']) player.x -= player.speed;
+            if (keys['d']) player.x += player.speed;
+            if (keys['w']) player.y -= player.speed;
+            if (keys['s']) player.y += player.speed;
+        }
+
+        function moveWeapon() {
+            if (keys['ArrowLeft']) weapon.x -= weapon.speed;
+            if (keys['ArrowRight']) weapon.x += weapon.speed;
+            if (keys['ArrowUp']) weapon.y -= weapon.speed;
+            if (keys['ArrowDown']) weapon.y += weapon.speed;
+
+            // Weapon wrap-around
+            if (weapon.x > width) weapon.x = 0;
+            if (weapon.x < 0) weapon.x = width;
+            if (weapon.y > height) weapon.y = 0;
+            if (weapon.y < 0) weapon.y = height;
+        }
+
+        function updateEnemies() {
+            enemies.forEach((enemy, index) => {
+                // Chase the player
+                if (enemy.x < player.x) enemy.x += chasespeed;
+                if (enemy.x > player.x) enemy.x -= chasespeed;
+                if (enemy.y < player.y) enemy.y += chasespeed;
+                if (enemy.y > player.y) enemy.y -= chasespeed;
+
+                // Check collision with weapon
+                const currentTime = Date.now();
+                if (checkCollision(weapon, enemy) && (currentTime - lastHitTime) >= hitCooldown) {
+                    enemy.health -= 0.5;
+                    lastHitTime = currentTime;
+                    if (enemy.health <= 0) {
+                        enemies.splice(index, 1);
+                        score += 1;
+                        coin += 1;
+                        if (Math.random() < 0.33) {
+                            difficulty += 40;
+                            chasespeed += 0.15;
+                        }
+                    } else {
+                        enemy.color = 'gray';
+                    }
+                }
+
+                // Check collision with player
+                if (checkCollision(player, enemy)) {
+                    alert("Game Over! Your score: " + score);
+                    document.location.reload();
+                }
+            });
+        }
+
+        function checkCollision(rect1, rect2) {
+            return (rect1.x < rect2.x + rect2.width &&
+                    rect1.x + rect1.width > rect2.x &&
+                    rect1.y < rect2.y + rect2.height &&
+                    rect1.y + rect1.height > rect2.y);
+        }
+
+        // Drawing Functions
+        function drawPlayer() {
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        function drawWeapon() {
+            ctx.drawImage(weaponImg, weapon.x, weapon.y, weapon.width, weapon.height);
+        }
+
+        function drawEnemies() {
+            enemies.forEach(enemy => {
+                ctx.fillStyle = enemy.color;
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+            });
+        }
+
+        function drawText() {
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.fillText('Score: ' + score, 10, 30);
+            ctx.fillText('Coins: ' + coin, 750, 30);
+        }
+
+        // Game Loop
+        function updateGame() {
+            ctx.clearRect(0, 0, width, height);  // Clear canvas
+
+            // Update player, weapon, enemies
+            movePlayer();
+            moveWeapon();
+            updateEnemies();
+
+            // Draw everything
+            drawPlayer();
+            drawWeapon();
+            drawEnemies();
+            drawText();
+
+            frameAmount++;
+            if (frameAmount % difficulty === 0) {
+                createNewEnemy();
+            }
+
+            requestAnimationFrame(updateGame);  // Loop
+        }
+
+        updateGame();  // Start the game loop
+
+    </script>
+
+</body>
+</html>
