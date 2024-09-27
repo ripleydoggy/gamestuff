@@ -10,12 +10,49 @@
             margin: 0 auto;
             background-color: black;
         }
+        .game-over-screen {
+            display: none;
+            text-align: center;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .btn {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-restart {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-home {
+            background-color: #f44336;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <canvas id="gameCanvas" width="900" height="900"></canvas>
     
+    <!-- Game Over Screen -->
+    <div class="game-over-screen" id="gameOverScreen">
+        <h2>Game Over!</h2>
+        <p id="finalScore">Your Score: 0</p>
+        <p id="highScoreText">High Score: 0</p>
+        <button class="btn btn-restart" onclick="restartGame()">Restart</button>
+        <a href="index.html"><button class="btn btn-home">Go Home</button></a>
+    </div>
+
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -32,8 +69,11 @@
         let difficulty = 480;
         let cost = 10;
         let score = 0;
+        let highScore = 0;  // High score tracker
         let hitCooldown = 1000;  // In milliseconds
         let lastHitTime = 0;
+
+        let gameOver = false;  // Track game state
 
         // Player
         const player = {
@@ -125,8 +165,7 @@
 
                 // Check collision with player
                 if (checkCollision(player, enemy)) {
-                    alert("Game Over! Your score: " + score);
-                    document.location.reload();
+                    endGame();  // Call game over function
                 }
             });
         }
@@ -160,29 +199,60 @@
             ctx.font = '30px Arial';
             ctx.fillText('Score: ' + score, 10, 30);
             ctx.fillText('Coins: ' + coin, 750, 30);
+            ctx.fillText('High Score: ' + highScore, 350, 30);
         }
 
         // Game Loop
         function updateGame() {
-            ctx.clearRect(0, 0, width, height);  // Clear canvas
+            if (!gameOver) {
+                ctx.clearRect(0, 0, width, height);  // Clear canvas
 
-            // Update player, weapon, enemies
-            movePlayer();
-            moveWeapon();
-            updateEnemies();
+                // Update player, weapon, enemies
+                movePlayer();
+                moveWeapon();
+                updateEnemies();
 
-            // Draw everything
-            drawPlayer();
-            drawWeapon();
-            drawEnemies();
-            drawText();
+                // Draw everything
+                drawPlayer();
+                drawWeapon();
+                drawEnemies();
+                drawText();
 
-            frameAmount++;
-            if (frameAmount % difficulty === 0) {
-                createNewEnemy();
+                frameAmount++;
+                if (frameAmount % difficulty === 0) {
+                    createNewEnemy();
+                }
+
+                requestAnimationFrame(updateGame);  // Loop
             }
+        }
 
-            requestAnimationFrame(updateGame);  // Loop
+        // End Game and show the Game Over screen
+        function endGame() {
+            gameOver = true;
+            document.getElementById('finalScore').innerText = 'Your Score: ' + score;
+            if (score > highScore) {
+                highScore = score;  // Update high score if the player sets a new one
+            }
+            document.getElementById('highScoreText').innerText = 'High Score: ' + highScore;
+            document.getElementById('gameOverScreen').style.display = 'block';
+        }
+
+        // Restart the game
+        function restartGame() {
+            // Reset game variables
+            score = 0;
+            coin = 0;
+            chasespeed = 1;
+            difficulty = 480;
+            player.x = 700;
+            player.y = 700;
+            weapon.x = 700;
+            weapon.y = 700;
+            enemies.length = 0;  // Clear enemies
+            document.getElementById('gameOverScreen').style.display = 'none';
+            gameOver = false;
+            updateGame();  // Restart the game loop
         }
 
         updateGame();  // Start the game loop
