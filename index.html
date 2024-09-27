@@ -31,19 +31,29 @@
             font-size: 16px;
             margin-top: 20px;
         }
+        .file-input {
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to Python Games</h1>
     <p>Select a game to play:</p>
+    
+    <div class="file-input">
+        <label for="filename">Enter a file name to save the game:</label>
+        <input type="text" id="filename" name="filename" placeholder="Enter file name here">
+    </div>
+
     <div>
         <a class="game-link" href="number-guesser.html">Number Guesser</a>
         <a class="game-link" href="rock-paper-scissors.html">Rock Paper Scissors</a>
         <a class="game-link" href="magic-8-ball.html">Magic 8 Ball</a>
         <a class="game-link" href="roulette.html">Roulette</a>
         <a class="game-link" href="madlib.html">Madlib Game</a>
-        <a class="game-link" href="converter.html">Length Unit Converter</a> <!-- Added link for Code Converter -->
+        <a class="game-link" href="converter.html">Length Unit Converter</a>
     </div>
+    
     <a class="home-button" href="index.html">Home</a>
 </body>
 </html>
